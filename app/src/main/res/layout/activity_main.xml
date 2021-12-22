@@ -11,6 +11,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/d3"
         app:layout_constraintStart_toEndOf="@+id/d1"
         app:layout_constraintTop_toBottomOf="@+id/c2" />
@@ -20,6 +21,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/d3"
         app:layout_constraintTop_toBottomOf="@+id/c4" />
@@ -29,6 +31,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/d2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/c1" />
@@ -38,6 +41,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/d4"
         app:layout_constraintStart_toEndOf="@+id/d2"
         app:layout_constraintTop_toBottomOf="@+id/c3" />
@@ -47,6 +51,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/c3"
         app:layout_constraintStart_toEndOf="@+id/c1"
         app:layout_constraintTop_toBottomOf="@+id/b2" />
@@ -56,6 +61,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/c3"
         app:layout_constraintTop_toBottomOf="@+id/b4" />
@@ -65,6 +71,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/c2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/b1" />
@@ -74,6 +81,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/c4"
         app:layout_constraintStart_toEndOf="@+id/c2"
         app:layout_constraintTop_toBottomOf="@+id/b3" />
@@ -83,6 +91,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/b3"
         app:layout_constraintStart_toEndOf="@+id/b1"
         app:layout_constraintTop_toBottomOf="@+id/a2" />
@@ -92,6 +101,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/a3"
         app:layout_constraintTop_toBottomOf="@+id/a4" />
@@ -101,6 +111,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/a2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/a1" />
@@ -110,6 +121,7 @@
         android:layout_width="90sp"
         android:layout_height="90sp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/b4"
         app:layout_constraintStart_toEndOf="@+id/b2"
         app:layout_constraintTop_toBottomOf="@+id/a3" />
@@ -120,6 +132,7 @@
         android:layout_height="90sp"
         android:layout_marginTop="200dp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/a3"
         app:layout_constraintTop_toTopOf="parent" />
@@ -130,6 +143,7 @@
         android:layout_height="90sp"
         android:layout_marginTop="200dp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/a2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -140,6 +154,7 @@
         android:layout_height="90sp"
         android:layout_marginTop="200dp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/a3"
         app:layout_constraintStart_toEndOf="@+id/a1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -150,6 +165,7 @@
         android:layout_height="90sp"
         android:layout_marginTop="200dp"
         android:text="Button"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/a4"
         app:layout_constraintStart_toEndOf="@+id/a2"
         app:layout_constraintTop_toTopOf="parent" />
