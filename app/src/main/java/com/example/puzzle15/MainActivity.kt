@@ -1,9 +1,19 @@
 package com.example.puzzle15
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
+import android.widget.Chronometer
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,10 +39,21 @@ class MainActivity : AppCompatActivity() {
 
     var game:Array<Array<Int>>?=null
     var button:Array<Button>?=null
+    var win :Array<Int>?=null
+
+    var btnstart:Button?=null
+    var timer: Chronometer?=null
+    var btnreset:ImageView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        window.navigationBarColor = resources.getColor(R.color.bg)
+
+        btnstart = findViewById(R.id.btnstart)
+        timer = findViewById(R.id.stoptime)
+        timer?.base = SystemClock.elapsedRealtime();
+        btnreset = findViewById(R.id.reset)
 
         a1 = findViewById(R.id.a1)
         a2 = findViewById(R.id.a2)
@@ -54,17 +75,42 @@ class MainActivity : AppCompatActivity() {
         d3 = findViewById(R.id.d3)
         d4 = findViewById(R.id.d4)
 
+        win = arrayOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0)
         button = arrayOf(a1!!,a2!!,a3!!,a4!!,b1!!,b2!!,b3!!,b4!!,c1!!,c2!!,c3!!,c4!!,d1!!,d2!!,d3!!)
         game = arrayOf(
-            arrayOf(0,0,0,0), // a1 a2 a3 a4
-            arrayOf(0,0,0,0), // b1 b2 b3 b4
-            arrayOf(0,0,0,0), // c1 c2 c3 c4
-            arrayOf(0,0,0,0) // d1 d2 d3 d4
+            arrayOf(1,2,3,4), // a1 a2 a3 a4
+            arrayOf(5,6,7,8), // b1 b2 b3 b4
+            arrayOf(9,10,11,12), // c1 c2 c3 c4
+            arrayOf(13,0,14,15)  // d1 d2 d3 d4
         )
 
-        game_start()
+        btnreset?.setOnClickListener {
+            disblebuttom(false)
+            btnstart?.visibility = View.VISIBLE
+            timer?.stop()
+            timer?.base = SystemClock.elapsedRealtime();
+           // game_start()
+            game_set()
+        }
+
+        btnstart?.setOnClickListener {
+            disblebuttom(true)
+            btnstart?.visibility = View.GONE
+            timer?.start()
+
+        }
+        disblebuttom(false)
+     //   game_start()
         game_set()
         controll()
+    }
+    fun disblebuttom(c:Boolean){
+        if(c){
+            button?.forEach { it.isEnabled=true }
+        }else{
+            button?.forEach { it.isEnabled=false }
+        }
+
     }
 
     fun game_start(){
@@ -102,14 +148,16 @@ class MainActivity : AppCompatActivity() {
         d2?.text = checknull(game!![3][1])
         d3?.text = checknull(game!![3][2])
         d4?.text = checknull(game!![3][3])
+
+        game_end()
     }
 
     fun checknull(game: Int):String{
         var gameset=""
-        if (game ==0){
-            gameset=""
+        gameset = if (game ==0){
+            ""
         }else{
-            gameset=game.toString()
+            game.toString()
         }
         return gameset
     }
@@ -144,10 +192,158 @@ class MainActivity : AppCompatActivity() {
         this[i1][i2] = this[y1][y2].also { this[y1][y2] = this[i1][i2] }
     }
 
-
-
-
     fun controll(){
+        a1?.setOnClickListener { //game[0][0]
+            when {
+                game!![1][0]==0 -> {
+                    game!!.swap(0,0,1,0) //swap game[0][0] to game[1][0]
+                }
+                game!![0][1]==0 -> {
+                    game!!.swap(0,0,0,1) //swap game[0][0] to game[0][1]
+                }
+
+            }
+            game_set()
+
+        }
+
+        a2?.setOnClickListener { //game[0][1]
+            when {
+                game!![1][1]==0 -> {
+                    game!!.swap(0,1,1,1) //swap game[0][1] to game[1][1]
+                }
+                game!![0][2]==0 -> {
+                    game!!.swap(0,1,0,2) //swap game[0][1] to game[0][2]
+                }
+                game!![0][0]==0 -> {
+                    game!!.swap(0,1,0,0) //swap game[0][1] to game[0][0]
+                }
+            }
+            game_set()
+        }
+        a3?.setOnClickListener { //game[0][2]
+            when {
+                game!![1][2]==0 -> {
+                    game!!.swap(0,2,1,2) //swap game[1][2] to game[1][2]
+                }
+                game!![0][3]==0 -> {
+                    game!!.swap(0,2,0,3) //swap game[1][2] to game[0][3]
+                }
+                game!![0][1]==0 -> {
+                    game!!.swap(0,2,0,1) //swap game[1][2] to game[0][1]
+                }
+            }
+            game_set()
+        }
+        a4?.setOnClickListener { //game[0][3]
+            when {
+                game!![1][3]==0 -> {
+                    game!!.swap(0,3,1,3) //swap game[0][3] to game[1][3]
+                }
+                game!![0][2]==0 -> {
+                    game!!.swap(0,3,0,2) //swap game[0][3] to game[0][2]
+                }
+
+
+            }
+            game_set()
+        }
+        b1?.setOnClickListener { //game[1][0]
+            when {
+                game!![2][0]==0 -> {
+                    game!!.swap(1,0,2,0) //swap game[1][0] to game[2][0]
+                }
+                game!![1][1]==0 -> {
+                    game!!.swap(1,0,1,1) //swap game[1][0] to game[1][1]
+                }
+                game!![0][0]==0 -> {
+                    game!!.swap(1,0,0,0) //swap game[1][0] to game[0][0]
+                }
+
+            }
+            game_set()
+        }
+        b2?.setOnClickListener { //game[1][1]
+            when {
+                game!![2][1]==0 -> {
+                    game!!.swap(1,1,2,1) //swap game[2][1] to game[2][1]
+                }
+                game!![1][2]==0 -> {
+                    game!!.swap(1,1,1,2) //swap game[1][2] to game[1][2]
+                }
+                game!![0][1]==0 -> {
+                    game!!.swap(1,1,0,1) //swap game[0][1] to game[0][1]
+                }
+                game!![1][0]==0 -> {
+                    game!!.swap(1,1,1,0) //swap game[1][0] to game[1][0]
+                }
+            }
+            game_set()
+        }
+        b3?.setOnClickListener { //game[1][2]
+            when {
+                game!![2][2]==0 -> {
+                    game!!.swap(1,2,2,2) //swap game[1][2] to game[2][2]
+                }
+                game!![1][3]==0 -> {
+                    game!!.swap(1,2,1,3) //swap game[1][2] to game[1][3]
+                }
+                game!![0][2]==0 -> {
+                    game!!.swap(1,2,0,2) //swap game[1][2] to game[0][2]
+                }
+                game!![1][1]==0 -> {
+                    game!!.swap(1,2,1,1) //swap game[1][2] to game[1][1]
+                }
+            }
+            game_set()
+        }
+        b4?.setOnClickListener { //game[1][3]
+            when {
+                game!![2][3]==0 -> {
+                    game!!.swap(1,3,2,3) //swap game[1][3] to game[2][3]
+                }
+                game!![1][2]==0 -> {
+                    game!!.swap(1,3,1,2) //swap game[1][3] to game[1][2]
+                }
+                game!![0][3]==0 -> {
+                    game!!.swap(1,3,0,3) //swap game[1][3] to game[0][3]
+                }
+
+            }
+            game_set()
+        }
+        c1?.setOnClickListener { //game[2][0]
+            when {
+                game!![3][0]==0 -> {
+                    game!!.swap(2,0,3,0) //swap game[2][2] to game[3][0]
+                }
+                game!![2][1]==0 -> {
+                    game!!.swap(2,0,2,1) //swap game[2][2] to game[2][1]
+                }
+                game!![1][0]==0 -> {
+                    game!!.swap(2,0,1,0) //swap game[2][2] to game[1][0]
+                }
+
+            }
+            game_set()
+        }
+        c2?.setOnClickListener { //game[2][1]
+            when {
+                game!![3][1]==0 -> {
+                    game!!.swap(2,1,3,1) //swap game[2][2] to game[3][1]
+                }
+                game!![2][2]==0 -> {
+                    game!!.swap(2,1,2,2) //swap game[2][2] to game[2][2]
+                }
+                game!![1][1]==0 -> {
+                    game!!.swap(2,1,1,1) //swap game[2][2] to game[1][1]
+                }
+                game!![2][0]==0 -> {
+                    game!!.swap(2,1,2,0) //swap game[2][2] to game[2][0]
+                }
+            }
+            game_set()
+        }
         c3?.setOnClickListener { //game[2][2]
             when {
                 game!![3][2]==0 -> {
@@ -235,7 +431,37 @@ class MainActivity : AppCompatActivity() {
             game_set()
         }
 
-
         }
 
+    fun game_end(){
+        var checkwin = ArrayList<Int>()
+        checkwin.clear()
+        for (i in game!!){
+            for (y in i){
+                checkwin.add(y)
+            }
+        }
+        if(checkwin.map { it } == win?.map { it }){
+            Dialogplayerwin(timer?.text.toString())
+        }
+
+
+    }
+    @SuppressLint("SetTextI18n")
+    fun Dialogplayerwin(Time:String){
+        var alertDialomenug: AlertDialog
+        val inflater: LayoutInflater = this.getLayoutInflater()
+        val dialogView: View = inflater.inflate(R.layout.winpopup, null)
+        val time: TextView = dialogView.findViewById(R.id.time)
+        time.text=Time+" minutes!!"
+        timer?.stop()
+        disblebuttom(false)
+        val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
+        dialogBuilder.setOnDismissListener { }
+        dialogBuilder.setView(dialogView)
+
+        alertDialomenug = dialogBuilder.create();
+        alertDialomenug.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialomenug.show()
+    }
 }

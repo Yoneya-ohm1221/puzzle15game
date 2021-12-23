@@ -11,6 +11,7 @@
         android:theme="@style/Theme.Puzzle15">
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.Puzzle15.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
