@@ -1,6 +1,7 @@
 package com.example.puzzle15
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,8 @@ import android.widget.Chronometer
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import com.example.puzzle15.database.DBHelper
+import com.example.puzzle15.menu.MenuActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     var btnstart:Button?=null
     var timer: Chronometer?=null
     var btnreset:ImageView?=null
+    var back:ImageView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         timer = findViewById(R.id.stoptime)
         timer?.base = SystemClock.elapsedRealtime();
         btnreset = findViewById(R.id.reset)
+        back = findViewById(R.id.back)
 
         a1 = findViewById(R.id.a1)
         a2 = findViewById(R.id.a2)
@@ -77,43 +82,52 @@ class MainActivity : AppCompatActivity() {
 
         win = arrayOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0)
         button = arrayOf(a1!!,a2!!,a3!!,a4!!,b1!!,b2!!,b3!!,b4!!,c1!!,c2!!,c3!!,c4!!,d1!!,d2!!,d3!!)
-        game = arrayOf(
-            arrayOf(1,2,3,4), // a1 a2 a3 a4
-            arrayOf(5,6,7,8), // b1 b2 b3 b4
-            arrayOf(9,10,11,12), // c1 c2 c3 c4
-            arrayOf(13,0,14,15)  // d1 d2 d3 d4
-        )
 
         btnreset?.setOnClickListener {
             disblebuttom(false)
             btnstart?.visibility = View.VISIBLE
             timer?.stop()
             timer?.base = SystemClock.elapsedRealtime();
-           // game_start()
+            game_start()
             game_set()
         }
 
         btnstart?.setOnClickListener {
             disblebuttom(true)
             btnstart?.visibility = View.GONE
+            window.navigationBarColor = resources.getColor(R.color.bg)
             timer?.start()
 
         }
+
+        back?.setOnClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+        }
+
         disblebuttom(false)
-     //   game_start()
+        game_start()
         game_set()
         controll()
     }
     fun disblebuttom(c:Boolean){
         if(c){
             button?.forEach { it.isEnabled=true }
+            d4?.isEnabled=true
         }else{
             button?.forEach { it.isEnabled=false }
+            d4?.isEnabled=false
         }
 
     }
 
     fun game_start(){
+        game = arrayOf(
+            arrayOf(0,0,0,0), // a1 a2 a3 a4
+            arrayOf(0,0,0,0), // b1 b2 b3 b4
+            arrayOf(0,0,0,0), // c1 c2 c3 c4
+            arrayOf(0,0,0,0)  // d1 d2 d3 d4
+        )
         var check = ArrayList<Int>()
         var rnds :Int=0
         rnds = (1..15).random()
@@ -443,6 +457,9 @@ class MainActivity : AppCompatActivity() {
         }
         if(checkwin.map { it } == win?.map { it }){
             Dialogplayerwin(timer?.text.toString())
+            val db = DBHelper(this)
+            db.addhistory(timer?.text.toString())
+
         }
 
 
