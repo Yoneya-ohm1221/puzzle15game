@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         d4 = findViewById(R.id.d4)
 
         win = arrayOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0)
-        button = arrayOf(a1!!,a2!!,a3!!,a4!!,b1!!,b2!!,b3!!,b4!!,c1!!,c2!!,c3!!,c4!!,d1!!,d2!!,d3!!)
+        button = arrayOf(a1!!,a2!!,a3!!,a4!!,b1!!,b2!!,b3!!,b4!!,c1!!,c2!!,c3!!,c4!!,d1!!,d2!!,d3!!,d4!!)
 
         btnreset?.setOnClickListener {
             disblebuttom(false)
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             timer?.stop()
             timer?.base = SystemClock.elapsedRealtime();
             game_start()
-            game_set()
+           // game_set()
         }
 
         btnstart?.setOnClickListener {
@@ -105,30 +105,35 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        disblebuttom(false)
         game_start()
-        game_set()
-        controll()
+        disblebuttom(false)
     }
     fun disblebuttom(c:Boolean){
         if(c){
             button?.forEach { it.isEnabled=true }
-            d4?.isEnabled=true
         }else{
             button?.forEach { it.isEnabled=false }
-            d4?.isEnabled=false
         }
 
     }
 
     fun game_start(){
         game = arrayOf(
-            arrayOf(0,0,0,0), // a1 a2 a3 a4
-            arrayOf(0,0,0,0), // b1 b2 b3 b4
-            arrayOf(0,0,0,0), // c1 c2 c3 c4
-            arrayOf(0,0,0,0)  // d1 d2 d3 d4
+            arrayOf(1,2,3,4), // a1 a2 a3 a4
+            arrayOf(5,6,7,8), // b1 b2 b3 b4
+            arrayOf(9,10,11,12), // c1 c2 c3 c4
+            arrayOf(13,14,15,0)  // d1 d2 d3 d4
         )
-        var check = ArrayList<Int>()
+        controll(false)
+        val rnds = (1..2000).random()
+        for( i in rnds..3000){
+            val rad = (0..15).random()
+                button!![rad].performClick()
+
+        }
+        controll(true)
+
+      /*  var check = ArrayList<Int>()
         var rnds :Int=0
         rnds = (1..15).random()
         check.add(0)
@@ -140,9 +145,11 @@ class MainActivity : AppCompatActivity() {
             check.add(rnds)
         }
         check!!.clear()
+
+       */
     }
 
-    fun game_set(){
+    fun game_set(c:Boolean){
         a1?.text = checknull(game!![0][0])
         a2?.text = checknull(game!![0][1])
         a3?.text = checknull(game!![0][2])
@@ -163,7 +170,10 @@ class MainActivity : AppCompatActivity() {
         d3?.text = checknull(game!![3][2])
         d4?.text = checknull(game!![3][3])
 
-        game_end()
+        if(c){
+            game_end()
+        }
+       //game_end()
     }
 
     fun checknull(game: Int):String{
@@ -206,7 +216,7 @@ class MainActivity : AppCompatActivity() {
         this[i1][i2] = this[y1][y2].also { this[y1][y2] = this[i1][i2] }
     }
 
-    fun controll(){
+    fun controll(c: Boolean){
         a1?.setOnClickListener { //game[0][0]
             when {
                 game!![1][0]==0 -> {
@@ -217,7 +227,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            game_set()
+            game_set(c)
 
         }
 
@@ -233,7 +243,7 @@ class MainActivity : AppCompatActivity() {
                     game!!.swap(0,1,0,0) //swap game[0][1] to game[0][0]
                 }
             }
-            game_set()
+            game_set(c)
         }
         a3?.setOnClickListener { //game[0][2]
             when {
@@ -247,7 +257,7 @@ class MainActivity : AppCompatActivity() {
                     game!!.swap(0,2,0,1) //swap game[1][2] to game[0][1]
                 }
             }
-            game_set()
+            game_set(c)
         }
         a4?.setOnClickListener { //game[0][3]
             when {
@@ -260,7 +270,7 @@ class MainActivity : AppCompatActivity() {
 
 
             }
-            game_set()
+            game_set(c)
         }
         b1?.setOnClickListener { //game[1][0]
             when {
@@ -275,7 +285,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            game_set()
+            game_set(c)
         }
         b2?.setOnClickListener { //game[1][1]
             when {
@@ -292,7 +302,7 @@ class MainActivity : AppCompatActivity() {
                     game!!.swap(1,1,1,0) //swap game[1][0] to game[1][0]
                 }
             }
-            game_set()
+            game_set(c)
         }
         b3?.setOnClickListener { //game[1][2]
             when {
@@ -309,7 +319,7 @@ class MainActivity : AppCompatActivity() {
                     game!!.swap(1,2,1,1) //swap game[1][2] to game[1][1]
                 }
             }
-            game_set()
+            game_set(c)
         }
         b4?.setOnClickListener { //game[1][3]
             when {
@@ -324,7 +334,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            game_set()
+            game_set(c)
         }
         c1?.setOnClickListener { //game[2][0]
             when {
@@ -339,7 +349,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            game_set()
+            game_set(c)
         }
         c2?.setOnClickListener { //game[2][1]
             when {
@@ -356,7 +366,7 @@ class MainActivity : AppCompatActivity() {
                     game!!.swap(2,1,2,0) //swap game[2][2] to game[2][0]
                 }
             }
-            game_set()
+            game_set(c)
         }
         c3?.setOnClickListener { //game[2][2]
             when {
@@ -373,7 +383,7 @@ class MainActivity : AppCompatActivity() {
                     game!!.swap(2,2,2,1) //swap game[2][2] to game[2][1]
                 }
             }
-            game_set()
+            game_set(c)
         }
         c4?.setOnClickListener { //game[2][3]
             when {
@@ -387,7 +397,7 @@ class MainActivity : AppCompatActivity() {
                     game!!.swap(2,3,1,3) //swap game[2][3] to game[1][3]
                 }
             }
-            game_set()
+            game_set(c)
         }
 
         d1?.setOnClickListener { //game[3][0]
@@ -400,7 +410,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            game_set()
+            game_set(c)
         }
 
         d2?.setOnClickListener { //game[3][1]
@@ -415,7 +425,7 @@ class MainActivity : AppCompatActivity() {
                     game!!.swap(3,1,3,0) //swap game[3][1] to game[3][0]
                 }
             }
-            game_set()
+            game_set(c)
         }
 
         d3?.setOnClickListener { //game[3][2]
@@ -430,7 +440,7 @@ class MainActivity : AppCompatActivity() {
                     game!!.swap(3,2,3,1) //swap game[3][2] to game[3][1]
                 }
             }
-            game_set()
+            game_set(c)
         }
 
         d4?.setOnClickListener { //game[3][3]
@@ -442,7 +452,7 @@ class MainActivity : AppCompatActivity() {
                     game!!.swap(3,3,2,3) //swap game[3][2] to game[2][3]
                 }
             }
-            game_set()
+            game_set(c)
         }
 
         }
