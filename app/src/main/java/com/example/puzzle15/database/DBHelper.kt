@@ -46,7 +46,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DA
 
     fun getAlldate():Cursor{
         val db= this.readableDatabase
-        var sql ="SELECT * FROM "+ TABLE_History
+        var sql ="SELECT * FROM "+ TABLE_History +" ORDER BY id DESC"
         return  db.rawQuery(sql,null)
     }
 

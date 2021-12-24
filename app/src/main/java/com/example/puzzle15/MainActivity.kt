@@ -84,18 +84,19 @@ class MainActivity : AppCompatActivity() {
         button = arrayOf(a1!!,a2!!,a3!!,a4!!,b1!!,b2!!,b3!!,b4!!,c1!!,c2!!,c3!!,c4!!,d1!!,d2!!,d3!!,d4!!)
 
         btnreset?.setOnClickListener {
+            game_start()
             disblebuttom(false)
             btnstart?.visibility = View.VISIBLE
             timer?.stop()
             timer?.base = SystemClock.elapsedRealtime();
-            game_start()
            // game_set()
         }
 
         btnstart?.setOnClickListener {
+            window.navigationBarColor = resources.getColor(R.color.bg)
             disblebuttom(true)
             btnstart?.visibility = View.GONE
-            window.navigationBarColor = resources.getColor(R.color.bg)
+            timer?.base = SystemClock.elapsedRealtime();
             timer?.start()
 
         }
@@ -125,8 +126,8 @@ class MainActivity : AppCompatActivity() {
             arrayOf(13,14,15,0)  // d1 d2 d3 d4
         )
         controll(false)
-        val rnds = (1..2000).random()
-        for( i in rnds..3000){
+       // val rnds = (1..2000).random()
+        for( i in 1..2000){
             val rad = (0..15).random()
                 button!![rad].performClick()
 
