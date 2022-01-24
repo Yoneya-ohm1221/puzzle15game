@@ -24,7 +24,7 @@ class HistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
-
+        window.navigationBarColor = resources.getColor(R.color.bg)
         recyclerView=findViewById(R.id.recycleview)
         emptry = findViewById(R.id.empty)
         back = findViewById(R.id.back2)

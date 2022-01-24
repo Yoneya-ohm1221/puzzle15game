@@ -17,6 +17,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.example.puzzle15.database.DBHelper
 import com.example.puzzle15.menu.MenuActivity
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,6 +52,8 @@ class MainActivity : AppCompatActivity() {
     var btnreset:ImageView?=null
     var back:ImageView?=null
 
+    var Fdatabase:FirebaseDatabase? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -59,6 +64,11 @@ class MainActivity : AppCompatActivity() {
         timer?.base = SystemClock.elapsedRealtime();
         btnreset = findViewById(R.id.reset)
         back = findViewById(R.id.back)
+
+        Fdatabase = FirebaseDatabase.getInstance()
+        var databaseReference =Fdatabase?.reference?.child("users")?.push()
+        databaseReference?.child("name")?.setValue("neya")
+        databaseReference?.child("time")?.setValue("11.00")
 
         a1 = findViewById(R.id.a1)
         a2 = findViewById(R.id.a2)

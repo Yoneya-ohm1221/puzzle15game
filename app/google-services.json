@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "916786865184",
+    "firebase_url": "https://pluzz15-kotlin-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pluzz15-kotlin",
+    "storage_bucket": "pluzz15-kotlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916786865184:android:3c645cd58183473459c845",
+        "android_client_info": {
+          "package_name": "com.example.puzzle15"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916786865184-fu9ufr9p5detn6bse51ggja63i6mcojv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt-kt0meyH9CreG4wrZvNXU7X-nOYbR24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916786865184-fu9ufr9p5detn6bse51ggja63i6mcojv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,7 +11,7 @@ import com.example.puzzle15.R
 class MenuActivity : AppCompatActivity() {
     var btnplay:Button?=null
     var btnhis :Button?=null
-
+    var btnrank:Button?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
@@ -19,6 +19,7 @@ class MenuActivity : AppCompatActivity() {
 
          btnplay = findViewById(R.id.button)
          btnhis = findViewById(R.id.btnhis)
+         btnrank = findViewById(R.id.btnranking)
 
         btnplay?.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -26,6 +27,10 @@ class MenuActivity : AppCompatActivity() {
         }
         btnhis?.setOnClickListener {
             val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
+        }
+        btnrank?.setOnClickListener {
+            val intent = Intent(this, RankingActivity::class.java)
             startActivity(intent)
         }
     }

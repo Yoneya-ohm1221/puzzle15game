@@ -4,11 +4,15 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo2"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo2"
         android:supportsRtl="true"
         android:theme="@style/Theme.Puzzle15">
+        <activity
+            android:name=".menu.RankingActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Puzzle15.NoActionBar" />
         <activity
             android:name=".menu.HistoryActivity"
             android:exported="true"
@@ -26,7 +30,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Puzzle15.NoActionBar"></activity>
+            android:theme="@style/Theme.Puzzle15.NoActionBar" />
     </application>
 
 </manifest>
