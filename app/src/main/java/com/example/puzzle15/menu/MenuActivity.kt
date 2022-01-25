@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,17 +28,21 @@ class MenuActivity : AppCompatActivity() {
     var playername:TextView?=null
     var name =""
     var editoption:ImageView?=null
+    var imgchat:ImageView?=null
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
         window.navigationBarColor = resources.getColor(R.color.bg)
+        window.statusBarColor = resources.getColor(R.color.bg)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-         btnplay = findViewById(R.id.button)
+        btnplay = findViewById(R.id.button)
          btnhis = findViewById(R.id.btnhis)
          btnrank = findViewById(R.id.btnranking)
          playername = findViewById(R.id.txtplayername)
          editoption = findViewById(R.id.imgeditoption)
+        imgchat = findViewById(R.id.imgchat)
 
         setName()
         btnplay?.setOnClickListener {
@@ -56,6 +61,14 @@ class MenuActivity : AppCompatActivity() {
                 Toast.makeText(this, "ไม่ได้เชื่อมต่อ Internet", Toast.LENGTH_SHORT).show()
             }
 
+        }
+        imgchat?.setOnClickListener {
+            if (isOnline(this)){
+                val intent = Intent(this, WorldChatActivity::class.java)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this, "ไม่ได้เชื่อมต่อ Internet", Toast.LENGTH_SHORT).show()
+            }
         }
 
         editoption?.setOnClickListener {

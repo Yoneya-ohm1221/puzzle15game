@@ -31,6 +31,8 @@ class RankingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_ranking)
         back = findViewById(R.id.back2)
         window.navigationBarColor = resources.getColor(R.color.bg)
+        window.statusBarColor = resources.getColor(R.color.bg)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         recyclerView = findViewById(R.id.recycleview)
         name1=findViewById(R.id.name1)
         name2=findViewById(R.id.name2)

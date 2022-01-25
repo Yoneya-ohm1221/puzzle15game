@@ -56,10 +56,13 @@ class MainActivity : AppCompatActivity() {
 
     var Fdatabase:FirebaseDatabase? = null
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         window.navigationBarColor = resources.getColor(R.color.bg)
+        window.statusBarColor = resources.getColor(R.color.bg)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         btnstart = findViewById(R.id.btnstart)
         timer = findViewById(R.id.stoptime)
@@ -126,6 +129,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun game_start(){
         game = arrayOf(
             arrayOf(1,2,3,4), // a1 a2 a3 a4
@@ -158,6 +162,8 @@ class MainActivity : AppCompatActivity() {
        */
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.M)
     fun game_set(c:Boolean){
         a1?.text = checknull(game!![0][0])
         a2?.text = checknull(game!![0][1])
@@ -225,6 +231,7 @@ class MainActivity : AppCompatActivity() {
         this[i1][i2] = this[y1][y2].also { this[y1][y2] = this[i1][i2] }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun controll(c: Boolean){
         a1?.setOnClickListener { //game[0][0]
             when {
