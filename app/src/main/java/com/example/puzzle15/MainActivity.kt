@@ -1,19 +1,21 @@
 package com.example.puzzle15
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.Chronometer
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.example.puzzle15.database.DBHelper
 import com.example.puzzle15.menu.MenuActivity
@@ -65,10 +67,6 @@ class MainActivity : AppCompatActivity() {
         btnreset = findViewById(R.id.reset)
         back = findViewById(R.id.back)
 
-        Fdatabase = FirebaseDatabase.getInstance()
-        var databaseReference =Fdatabase?.reference?.child("users")?.push()
-        databaseReference?.child("name")?.setValue("neya")
-        databaseReference?.child("time")?.setValue("11.00")
 
         a1 = findViewById(R.id.a1)
         a2 = findViewById(R.id.a2)
@@ -468,6 +466,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun game_end(){
         var checkwin = ArrayList<Int>()
         checkwin.clear()
@@ -480,6 +479,7 @@ class MainActivity : AppCompatActivity() {
             Dialogplayerwin(timer?.text.toString())
             val db = DBHelper(this)
             db.addhistory(timer?.text.toString())
+            addfirebase(timer?.text.toString())
 
         }
 
@@ -501,5 +501,44 @@ class MainActivity : AppCompatActivity() {
         alertDialomenug = dialogBuilder.create();
         alertDialomenug.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialomenug.show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun addfirebase(time:String){
+        val db =DBHelper(this)
+        var name =db.getPlayerName()
+
+        if (isOnline(this)){
+            Fdatabase = FirebaseDatabase.getInstance()
+            var databaseReference =Fdatabase?.reference?.child("users")?.push()
+            databaseReference?.child("time")?.setValue(time)
+            databaseReference?.child("name")?.setValue(name)
+        }else{
+            Toast.makeText(this, "ไม่ได้เชื่อมต่อ Internet ไม่ถูกทึก online", Toast.LENGTH_SHORT).show()
+        }
+
+
+    }
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager != null) {
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
